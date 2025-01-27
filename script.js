@@ -17,16 +17,20 @@ function getComputerChoice() {
 function getHumanChoice() {
   const validChoices = ["rock", "paper", "scissors"];
 
-  let humanChoice = prompt(
-    "Enter your move! 'rock', 'paper' or 'scissors'"
-  ).toLowerCase();
+  while (true) {
+    // Let user retry if bad choice is submitted
+    let humanChoice = prompt(
+      "Enter your move! 'rock', 'paper' or 'scissors'"
+    ).toLowerCase();
 
-  const checkValidity = validChoices.includes(humanChoice);
-
-  if (checkValidity) {
-    return humanChoice;
-  } else {
-    return `${humanChoice} is not a valid choice! Please choose from ${validChoices}`;
+    const checkValidity = validChoices.includes(humanChoice);
+    if (checkValidity) {
+      return humanChoice;
+    } else {
+      alert(
+        `${humanChoice} is not a valid choice! Please choose from ${validChoices}`
+      );
+    }
   }
 }
 
