@@ -14,28 +14,29 @@ function getComputerChoice() {
   }
 }
 
-function getHumanChoice() {
-  const validChoices = ["rock", "paper", "scissors"];
+// function getHumanChoice() {
+//   const validChoices = ["rock", "paper", "scissors"];
 
-  while (true) {
-    // Let user retry if bad choice is submitted
-    let humanChoice = prompt(
-      "Enter your move! 'rock', 'paper' or 'scissors'"
-    ).toLowerCase();
+//   while (true) {
+//     // Let user retry if bad choice is submitted
+//     let humanChoice = prompt(
+//       "Enter your move! 'rock', 'paper' or 'scissors'"
+//     ).toLowerCase();
 
-    const checkValidity = validChoices.includes(humanChoice);
-    if (checkValidity) {
-      return humanChoice;
-    } else {
-      alert(
-        `${humanChoice} is not a valid choice! Please choose from ${validChoices}`
-      );
-    }
-  }
-}
+//     const checkValidity = validChoices.includes(humanChoice);
+//     if (checkValidity) {
+//       return humanChoice;
+//     } else {
+//       alert(
+//         `${humanChoice} is not a valid choice! Please choose from ${validChoices}`
+//       );
+//     }
+//   }
+// }
 
 function playRound(humanChoice, computerChoice) {
   let winner = "";
+  console.log(humanChoice, computerChoice);
   if (humanChoice === computerChoice) {
     console.log(`It's a tie! Both picked ${humanChoice}`);
   } else if (humanChoice === "rock") {
@@ -63,7 +64,7 @@ function playRound(humanChoice, computerChoice) {
       console.log("You lose! Rock beats Scissors!");
     }
   }
-  return winner;
+  console.log(`winner: ${winner}`);
 }
 
 function playGame() {
@@ -71,7 +72,7 @@ function playGame() {
   let computerScore = 0;
 
   for (let round = 0; round < 5; round++) {
-    const humanSelection = getHumanChoice();
+    const humanSelection = humanChoice;
     const computerSelection = getComputerChoice();
 
     // Announce player choices
@@ -101,4 +102,15 @@ function playGame() {
   }
 }
 
-playGame();
+//Add event listener to the buttons
+// Call playRound
+// with playerSelection
+
+const buttons = document.querySelectorAll(".player-choice");
+console.log(buttons);
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () =>
+    playRound(button.textContent.toLowerCase(), getComputerChoice())
+  );
+});
