@@ -1,4 +1,4 @@
-// A "Rock Paper Scissors" game playable via the console
+// A "Rock Paper Scissors" game playable through a user interface
 
 function getComputerChoice() {
   // Generate a random int between 1 and 3 inclusive
@@ -83,7 +83,6 @@ function playGame() {
 }
 
 const buttons = document.querySelectorAll(".player-choice");
-console.log(buttons);
 
 buttons.forEach((button) => {
   button.addEventListener("click", () =>
