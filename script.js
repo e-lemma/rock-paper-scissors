@@ -16,76 +16,105 @@ function getComputerChoice() {
 
 function playRound(humanChoice, computerChoice) {
   let winner = "";
-  console.log(humanChoice, computerChoice);
+  addMessageToUI(humanChoice, computerChoice);
   if (humanChoice === computerChoice) {
-    console.log(`It's a tie! Both picked ${humanChoice}`);
+    addMessageToUI(`It's a tie! Both picked ${humanChoice}`);
   } else if (humanChoice === "rock") {
     if (computerChoice === "scissors") {
       winner = "human";
-      console.log("You win! Rock beats Scissors!");
+      addMessageToUI("You win! Rock beats Scissors!");
     } else {
       winner = "computer";
-      console.log("You lose! Paper beats Rock!");
+      addMessageToUI("You lose! Paper beats Rock!");
     }
   } else if (humanChoice === "paper") {
     if (computerChoice === "rock") {
       winner = "human";
-      console.log("You win! Paper beats Rock!");
+      addMessageToUI("You win! Paper beats Rock!");
     } else {
       winner = "computer";
-      console.log("You lose! Scissors beats Paper!");
+      addMessageToUI("You lose! Scissors beats Paper!");
     }
   } else if (humanChoice === "scissors") {
     if (computerChoice === "paper") {
       winner = "human";
-      console.log("You win! Scissors beats Paper!");
+      addMessageToUI("You win! Scissors beats Paper!");
     } else {
       winner = "computer";
-      console.log("You lose! Rock beats Scissors!");
+      addMessageToUI("You lose! Rock beats Scissors!");
     }
   }
-  console.log(`winner: ${winner}`);
-}
+  addMessageToUI(`winner: ${winner}`);
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-
-  for (let round = 0; round < 5; round++) {
-    const humanSelection = humanChoice;
-    const computerSelection = getComputerChoice();
-
-    // Announce player choices
-    console.log("You pick " + humanSelection);
-    console.log("Computer picks " + computerSelection);
-
-    // Play round, add score to winner
-    let round_winner = playRound(humanSelection, computerSelection);
-    if (round_winner === "human") {
-      humanScore++;
-    } else if (round_winner === "computer") {
-      computerScore++;
-    }
+  if (winner === "human") {
+    humanScore++;
+  } else if (winner === "computer") {
+    computerScore++;
   }
 
-  // Announce final scores
-  console.log("Your score: " + humanScore);
-  console.log("Computer score: " + computerScore);
-
-  // Determine and announce overall winner
-  if (humanScore > computerScore) {
-    console.log("You win!!");
-  } else if (humanScore < computerScore) {
-    console.log("You lose...");
-  } else {
-    console.log("It's a tie.");
-  }
+  trackGameScore(humanScore, computerScore);
+  checkGameEnd();
+  return winner;
 }
 
-const buttons = document.querySelectorAll(".player-choice");
+function setupUIButtons() {
+  const buttons = document.querySelectorAll(".player-choice");
 
-buttons.forEach((button) => {
-  button.addEventListener("click", () =>
-    playRound(button.textContent.toLowerCase(), getComputerChoice())
-  );
-});
+  buttons.forEach((button) => {
+    button.addEventListener("click", () =>
+      playRound(button.textContent.toLowerCase(), getComputerChoice())
+    );
+  });
+}
+
+function addMessageToUI(message) {
+  const messageDiv = document.createElement("div");
+  messageDiv.style.cssText = "color: red;";
+  messageDiv.textContent = message;
+  messagesDiv.appendChild(messageDiv);
+}
+
+function trackGameScore(humanScore, computerScore) {
+  ScoreString = `Player ${humanScore} - ${computerScore} Computer`;
+  const scoreDiv = document.querySelector("#game-score");
+  scoreDiv.textContent = ScoreString;
+}
+
+function checkGameEnd() {
+  if (humanScore >= 5 || computerScore >= 5) {
+    const winner = humanScore >= 5 ? "You" : "Computer";
+    addMessageToUI(`Game Over! ${winner} won!`);
+    disableChoiceButtons();
+    showRestartButton();
+    return trackGameScore;
+  }
+  return false;
+}
+
+function showRestartButton() {
+  const restartButton = document.querySelector("#restart");
+  restartButton.style.display = "block";
+}
+
+function disableChoiceButtons() {
+  const buttons = document.querySelectorAll(".player-choice");
+  buttons.forEach((button) => (button.disabled = true));
+}
+
+function resetGame() {
+  humanScore = 0;
+  computerScore = 0;
+  trackGameScore(humanScore, computerScore);
+  messagesDiv.innerHTML = "";
+  const buttons = document.querySelectorAll(".player-choice");
+  buttons.forEach((button) => (button.disabled = false));
+  document.querySelector("#restart").style.display = "none";
+}
+
+let humanScore = 0;
+let computerScore = 0;
+
+document.querySelector("#restart").addEventListener("click", resetGame);
+const messagesDiv = document.querySelector("#game-messages");
+
+setupUIButtons();
