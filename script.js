@@ -90,9 +90,7 @@ function checkGameEnd() {
     addMessageToUI(`Game Over! ${winner} won!`);
     disableChoiceButtons();
     showRestartButton();
-    return trackGameScore;
   }
-  return false;
 }
 
 function resetGame() {
