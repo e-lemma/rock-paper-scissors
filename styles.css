@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #f0f0f0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#player-choices {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#game-messages {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#game-messages div {
+  margin: 2px;
+  padding: 4px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
