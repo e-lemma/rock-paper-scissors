@@ -19,6 +19,7 @@ function getComputerChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
+  // Clear message display between rounds
   if (messagesDiv.innerHTML) {
     messagesDiv.innerHTML = "";
   }
