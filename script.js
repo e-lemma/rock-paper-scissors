@@ -1,5 +1,9 @@
 // A "Rock Paper Scissors" game playable through a user interface
 
+let humanScore = 0;
+let computerScore = 0;
+const messagesDiv = document.querySelector("#game-messages");
+
 function getComputerChoice() {
   // Generate a random int between 1 and 3 inclusive
   const randomNumber = Math.floor(Math.random() * 3) + 1;
@@ -15,8 +19,13 @@ function getComputerChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
+  if (messagesDiv.innerHTML) {
+    messagesDiv.innerHTML = "";
+  }
+
   let winner = "";
-  addMessageToUI(humanChoice, computerChoice);
+  addMessageToUI(`You pick: ${humanChoice}`);
+  addMessageToUI(`Computer picks: ${computerChoice}`);
   if (humanChoice === computerChoice) {
     addMessageToUI(`It's a tie! Both picked ${humanChoice}`);
   } else if (humanChoice === "rock") {
@@ -44,7 +53,11 @@ function playRound(humanChoice, computerChoice) {
       addMessageToUI("You lose! Rock beats Scissors!");
     }
   }
-  addMessageToUI(`winner: ${winner}`);
+  if (humanChoice === computerChoice) {
+    addMessageToUI(`No points given`);
+  } else {
+    addMessageToUI(`Round goes to: ${winner}`);
+  }
 
   if (winner === "human") {
     humanScore++;
@@ -57,16 +70,6 @@ function playRound(humanChoice, computerChoice) {
   return winner;
 }
 
-function setupUIButtons() {
-  const buttons = document.querySelectorAll(".player-choice");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () =>
-      playRound(button.textContent.toLowerCase(), getComputerChoice())
-    );
-  });
-}
-
 function addMessageToUI(message) {
   const messageDiv = document.createElement("div");
   messageDiv.style.cssText = "color: red;";
@@ -74,7 +77,7 @@ function addMessageToUI(message) {
   messagesDiv.appendChild(messageDiv);
 }
 
-function trackGameScore(humanScore, computerScore) {
+function trackGameScore(humanScore = 0, computerScore = 0) {
   ScoreString = `Player ${humanScore} - ${computerScore} Computer`;
   const scoreDiv = document.querySelector("#game-score");
   scoreDiv.textContent = ScoreString;
@@ -91,16 +94,6 @@ function checkGameEnd() {
   return false;
 }
 
-function showRestartButton() {
-  const restartButton = document.querySelector("#restart");
-  restartButton.style.display = "block";
-}
-
-function disableChoiceButtons() {
-  const buttons = document.querySelectorAll(".player-choice");
-  buttons.forEach((button) => (button.disabled = true));
-}
-
 function resetGame() {
   humanScore = 0;
   computerScore = 0;
@@ -111,10 +104,28 @@ function resetGame() {
   document.querySelector("#restart").style.display = "none";
 }
 
-let humanScore = 0;
-let computerScore = 0;
+function setupUIButtons() {
+  const buttons = document.querySelectorAll(".player-choice");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () =>
+      playRound(button.textContent.toLowerCase(), getComputerChoice())
+    );
+  });
+}
+
+function showRestartButton() {
+  const restartButton = document.querySelector("#restart");
+  restartButton.style.display = "flex";
+  restartButton.style.justifyContent = "center";
+  restartButton.style.alignItems = "center";
+}
+
+function disableChoiceButtons() {
+  const buttons = document.querySelectorAll(".player-choice");
+  buttons.forEach((button) => (button.disabled = true));
+}
 
 document.querySelector("#restart").addEventListener("click", resetGame);
-const messagesDiv = document.querySelector("#game-messages");
-
 setupUIButtons();
+trackGameScore();
