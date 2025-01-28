@@ -14,26 +14,6 @@ function getComputerChoice() {
   }
 }
 
-// function getHumanChoice() {
-//   const validChoices = ["rock", "paper", "scissors"];
-
-//   while (true) {
-//     // Let user retry if bad choice is submitted
-//     let humanChoice = prompt(
-//       "Enter your move! 'rock', 'paper' or 'scissors'"
-//     ).toLowerCase();
-
-//     const checkValidity = validChoices.includes(humanChoice);
-//     if (checkValidity) {
-//       return humanChoice;
-//     } else {
-//       alert(
-//         `${humanChoice} is not a valid choice! Please choose from ${validChoices}`
-//       );
-//     }
-//   }
-// }
-
 function playRound(humanChoice, computerChoice) {
   let winner = "";
   console.log(humanChoice, computerChoice);
@@ -101,10 +81,6 @@ function playGame() {
     console.log("It's a tie.");
   }
 }
-
-//Add event listener to the buttons
-// Call playRound
-// with playerSelection
 
 const buttons = document.querySelectorAll(".player-choice");
 console.log(buttons);
