@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
   max-width: 600px;
@@ -10,12 +15,20 @@ body {
   flex-direction: column;
 }
 
+.container {
+  background-color: #98fb988d;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
 #player-choices {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 
 #game-messages {
@@ -23,9 +36,23 @@ body {
   border-radius: 8px;
 }
 
-#game-messages div {
-  margin: 2px;
+.game-message {
   padding: 4px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
+}
+
+button {
+  padding: 5px;
+  background-color: #dff8df8d;
+  border: 1px solid #4676468d;
+  border-radius: 5px;
+}
+
+#restart {
+  margin-top: 1rem;
+}
+
+#game-score {
+  background-color: #dff8df8d;
+  padding: 5px;
+  border-radius: 2rem;
 }
