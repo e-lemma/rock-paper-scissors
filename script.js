@@ -73,8 +73,8 @@ function playRound(humanChoice, computerChoice) {
 
 function addMessageToUI(message) {
   const messageDiv = document.createElement("div");
-  messageDiv.style.cssText = "color: red;";
   messageDiv.textContent = message;
+  messageDiv.classList.add("game-message");
   messagesDiv.appendChild(messageDiv);
 }
 
